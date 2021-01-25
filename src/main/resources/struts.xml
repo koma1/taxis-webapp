@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+   "http://struts.apache.org/dtds/struts-2.5.dtd">
+ 
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="StrutsResources18n" />
+	
+	<!-- Global (abstracts) -->
+	<package name="app-default" extends="tiles-default" abstract="true" strict-method-invocation="false">
+   		<global-results>
+   			<!-- Index action emulating -->
+   			<result name="success" type="chain">list</result>
+   			<!-- exceptions -->
+   			<result name="entity_not_found_exception">/WEB-INF/jsp/struts/exceptions/EntityNotFound.jsp</result>
+   			<result name="handled_exception">/WEB-INF/jsp/struts/exceptions/HandledException.jsp</result>
+			
+			<result name="posted" type="tiles">posted</result>
+   		</global-results>
+   		
+   		<global-allowed-methods>list,add,edit,save,remove</global-allowed-methods>
+   		
+   		<global-exception-mappings>
+   			<exception-mapping exception="pw.komarov.taxi.persistence.exceptions.EntityObjectNotFoundException" result="entity_not_found_exception"/>
+   			<exception-mapping exception="pw.komarov.taxi.struts.HandledException" result="handled_exception"/>
+   		</global-exception-mappings>
+	</package>
+	<package name="app-default-with-ajax-validate" extends="app-default" abstract="true"> 		
+   		<action name="ajaxValidate" method="ajaxValidateFields">
+			<result name="ajax_success" type="stream">
+        		<param name="contentType">text/plain</param>
+        		<param name="inputName">ajaxInputStream</param>
+    		</result>
+   		</action>
+	</package>
+
+	<!-- Taxis -->
+	<package name="taxis" namespace="/taxis" extends="app-default-with-ajax-validate">
+      	<default-class-ref class="pw.komarov.taxi.struts.TaxiAction"/>
+
+      	<global-results>
+   			<result name="list" type="tiles">taxis_list</result>
+   			<result name="input, error" type="tiles">taxi_form</result>
+   		</global-results>
+
+   		<action name="*" method="{1}"/>
+	</package>
+	<!-- Cities -->
+	<package name="cities" namespace="/cities" extends="app-default-with-ajax-validate">
+      	<default-class-ref class="pw.komarov.taxi.struts.CityAction"/>
+
+      	<global-results>
+   			<result name="list" type="tiles">cities_list</result>
+   			<result name="input, error" type="tiles">city_form</result>
+   			<result name="object_held" type="tiles">city_held</result>
+   		</global-results>
+
+   		<action name="*" method="{1}"/>
+	</package>
+	<!-- Countries -->
+	<package name="countries" namespace="/countries" extends="app-default-with-ajax-validate">
+      	<default-class-ref class="pw.komarov.taxi.struts.CountryAction"/>
+
+      	<global-results>
+   			<result name="list" type="tiles">countries_list</result>
+   			<result name="input, error" type="tiles">country_form</result>
+   			<result name="object_held" type="tiles">country_held</result>
+   		</global-results>
+
+   		<action name="*" method="{1}"/>
+	</package>
+</struts>

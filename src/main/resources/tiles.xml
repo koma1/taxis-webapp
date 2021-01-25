@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+   <!-- Globals -->
+   <definition name = "list" template = "/WEB-INF/jsp/struts/tiles/templates/list.jsp"/>
+   <definition name = "form" template = "/WEB-INF/jsp/struts/tiles/templates/form.jsp"/>
+   <definition name = "posted" template = "/WEB-INF/jsp/struts/tiles/templates/posted.jsp"/>
+   <definition name = "held" template = "/WEB-INF/jsp/struts/tiles/templates/held.jsp"/>
+   
+   <!-- Taxis -->
+   <definition name = "taxis_list" extends = "list">
+      <put-attribute name = "table"  value = "/WEB-INF/jsp/struts/tiles/parts/taxi_table.jsp"/>      
+   </definition>
+   <definition name = "taxi_form" extends = "form">
+      <put-attribute name = "formContent" value = "/WEB-INF/jsp/struts/tiles/parts/taxi_form.jsp"/>      
+   </definition>
+   
+   <!-- Cities -->
+   <definition name = "cities_list" extends = "list">
+      <put-attribute name = "table"  value = "/WEB-INF/jsp/struts/tiles/parts/city_table.jsp"/>      
+   </definition>
+   <definition name = "city_form" extends = "form">
+      <put-attribute name = "formContent" value = "/WEB-INF/jsp/struts/tiles/parts/city_form.jsp"/>      
+   </definition>
+   <definition name = "city_held" extends = "held">
+      <put-attribute name = "heldByEntity" value = "taxis"/>      
+   </definition>
+   
+   <!-- Countries -->
+   <definition name = "countries_list" extends = "list">
+      <put-attribute name = "table"  value = "/WEB-INF/jsp/struts/tiles/parts/country_table.jsp"/>      
+   </definition>
+   <definition name = "country_form" extends = "form">
+      <put-attribute name = "formContent" value = "/WEB-INF/jsp/struts/tiles/parts/country_form.jsp"/>      
+   </definition>
+   <definition name = "country_held" extends = "held">
+      <put-attribute name = "heldByEntity" value = "cities"/>      
+   </definition>  
+</tiles-definitions>
