@@ -5,6 +5,23 @@
          version="3.1">
 
   <display-name>Taxis web application</display-name>
+  
+  <context-param>
+	<param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring-security.xml</param-value>
+  </context-param>
+
+  <filter>
+  	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter> 
+	
+  <filter-mapping>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+	 
 
   <context-param>
     <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
@@ -19,13 +36,18 @@
   <filter-mapping>
     <filter-name>struts2</filter-name>
     <url-pattern>/taxis/*</url-pattern>
-    <url-pattern>*.action</url-pattern>
     <url-pattern>/cities/*</url-pattern>
     <url-pattern>/countries/*</url-pattern>
+    <url-pattern>/login</url-pattern>
+    <url-pattern>*.action</url-pattern>
   </filter-mapping>
 
   <listener>
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
+  </listener>
+  
+  <listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
   <welcome-file-list>

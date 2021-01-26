@@ -8,6 +8,12 @@
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="StrutsResources18n" />
 	
+	<package name="def" extends="struts-default" namespace="/">
+		<action name="login">
+			<result name="success">/WEB-INF/jsp/struts/login.jsp</result>
+		</action>
+	</package>
+	
 	<!-- Global (abstracts) -->
 	<package name="app-default" extends="tiles-default" abstract="true" strict-method-invocation="false">
    		<global-results>
