@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 <title>Login</title>
 </head>
 <body>
 	<h1>Login</h1>
-	
+	<c:if test="${param.error != null}"><span class="errorMessage">Invalid username/password!</span><br></c:if>
 	<c:url var="loginUrl" value="/login"/>
         <form action="${loginUrl}" method="post">
             <input type="text" name="username" placeholder="Username"/><br/>
