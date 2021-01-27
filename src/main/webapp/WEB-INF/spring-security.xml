@@ -20,7 +20,12 @@
     
     <global-method-security pre-post-annotations="enabled"/>
     <http auto-config="true">
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_REST')"/>
+      <!-- REST interceptors -->
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_REST')" method="GET"/>
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="POST"/>
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="PUT"/>
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="DELETE"/>
+      <!-- Actions interceptors -->  
         <intercept-url pattern="/taxis/**" access="hasRole('ROLE_AUTHORIZED')" />
         <intercept-url pattern="/cities/**" access="hasRole('ROLE_AUTHORIZED')" />
 
