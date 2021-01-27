@@ -49,7 +49,7 @@ public class TaxiEntity implements EntityIntf {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", updatable = false)
+	@Column(updatable = false)
 	@Getter
 	private Integer id;
 	
@@ -58,11 +58,11 @@ public class TaxiEntity implements EntityIntf {
 			this.id = id;
 	}
 	
-	@Column(name = "NAME", nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	@Getter @Setter	
 	private String name;
 
-	@Column(name = "PHONE", nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	@Getter @Setter	
 	private String phone;
 	
