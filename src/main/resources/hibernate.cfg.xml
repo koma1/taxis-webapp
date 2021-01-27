@@ -18,5 +18,9 @@
         <mapping class="pw.komarov.taxi.persistence.entity.CountryEntity"/>
         <mapping class="pw.komarov.taxi.persistence.entity.CityEntity"/>
         <mapping class="pw.komarov.taxi.persistence.entity.TaxiEntity"/>
+        
+        <mapping class="pw.komarov.taxi.persistence.entity.UserEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.RoleEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.PrivilegeEntity"/>
     </session-factory>
 </hibernate-configuration>
