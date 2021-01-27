@@ -15,8 +15,8 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="pw.komarov.taxi.persistence.entity.CountryEntity"/>
-        <mapping class="pw.komarov.taxi.persistence.entity.CityEntity"/>
         <mapping class="pw.komarov.taxi.persistence.entity.TaxiEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.CityEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.CountryEntity"/>
     </session-factory>
 </hibernate-configuration>
