@@ -10,8 +10,12 @@ import pw.komarov.taxi.persistence.exceptions.EntityObjectHeldException;
 import pw.komarov.taxi.persistence.exceptions.EntityObjectIncompletedException;
 import pw.komarov.taxi.persistence.exceptions.EntityObjectNotFoundException;
 
-public class CountryService implements EntityService<CountryEntity>  {
+public class CountryService extends AbstractDaoService<CountryEntity>  {
 	private static final CountryDao countryDao = new CountryDao();
+	
+	public CountryService() {
+		super(countryDao);
+	}
 	
 	public boolean checkNameDuplicated(String name, Integer idEditing) {
 		CountryEntity data = countryDao.getByName(name);
@@ -20,16 +24,6 @@ public class CountryService implements EntityService<CountryEntity>  {
 
 	public List<CityEntity> getHeldBy(Integer countryId) {
 		return countryDao.getHeldBy(countryId);
-	}
-
-	@Override
-	public CountryEntity getEntity(Integer id) {
-		return countryDao.findById(id);
-	}
-
-	@Override
-	public List<CountryEntity> getAllEntities() {
-		return countryDao.getAll();
 	}
 	
 	public List<CountryEntity> find(String name) {
