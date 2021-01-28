@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%request.setAttribute("taxis", new pw.komarov.taxi.persistence.services.TaxiService().getAllEntities());%>
+<jsp:useBean id="service" scope="page" class="pw.komarov.taxi.persistence.services.TaxiService"/>
 		    <tr>
 		        <th>ID</th>
 		        <th>Name</th>
@@ -9,7 +9,7 @@
 		        <th>Cities</th>
 		        <th>Actions</th>
 		    </tr>
-		    <c:forEach items="${taxis}" var="taxi">
+		    <c:forEach items="${service.allEntities}" var="taxi">
 		        <tr>
 		            <td>${taxi.id}</td>
 		            <td>${taxi.name}</td>
