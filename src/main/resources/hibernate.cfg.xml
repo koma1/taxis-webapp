@@ -11,13 +11,15 @@
         <property name="hibernate.connection.password">123321</property>
         <property name="hibernate.connection.serverTimezone">UTC</property>
         <property name="hibernate.connection.useSSL">false</property>
+        <property name="hibernate.connection.allowPublicKeyRetrieval">true</property>
+        
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="pw.komarov.taxi.persistence.entity.CountryEntity"/>
-        <mapping class="pw.komarov.taxi.persistence.entity.CityEntity"/>
         <mapping class="pw.komarov.taxi.persistence.entity.TaxiEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.CityEntity"/>
+        <mapping class="pw.komarov.taxi.persistence.entity.CountryEntity"/>
         
         <mapping class="pw.komarov.taxi.persistence.entity.UserEntity"/>
         <mapping class="pw.komarov.taxi.persistence.entity.RoleEntity"/>

@@ -29,11 +29,11 @@ public class CountryEntity implements EntityIntf {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", updatable = false)
+	@Column(updatable = false)
 	@Getter @Setter
 	private Integer id;
 
-	@Column(name = "NAME", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	@Getter @Setter
 	private String name;
 }

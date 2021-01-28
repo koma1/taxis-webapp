@@ -12,22 +12,16 @@ import pw.komarov.taxi.persistence.exceptions.EntityObjectException;
 import pw.komarov.taxi.persistence.exceptions.EntityObjectIncompletedException;
 import pw.komarov.taxi.persistence.exceptions.EntityObjectNotFoundException;
 
-public class TaxiService implements EntityService<TaxiEntity> {
+public class TaxiService extends AbstractDaoService<TaxiEntity> {
 	private static final TaxiDao taxiDao = new TaxiDao();
 	private static final CityDao cityDao = new CityDao();
 	
-	public List<CityEntity> getAllCities() {
-		return cityDao.getAll();
+	public TaxiService() {
+		super(taxiDao);
 	}
 	
-	@Override
-	public TaxiEntity getEntity(Integer id) {
-		return taxiDao.findById(id);
-	}
-
-	@Override
-	public List<TaxiEntity> getAllEntities() {
-		return taxiDao.getAll();
+	public List<CityEntity> getAllCities() {
+		return cityDao.getAll();
 	}
 	
 	public List<TaxiEntity> find(String name, String phone, String city, String text) {

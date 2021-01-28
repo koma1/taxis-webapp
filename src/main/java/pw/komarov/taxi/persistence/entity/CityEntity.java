@@ -45,7 +45,7 @@ public class CityEntity implements EntityIntf {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(updatable = false, nullable = false)
 	@Getter
 	private Integer id;
 	
@@ -54,7 +54,7 @@ public class CityEntity implements EntityIntf {
 			this.id = id;
 	}
 	
-	@Column(name = "NAME", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	@Getter @Setter
 	private String name;
 	
