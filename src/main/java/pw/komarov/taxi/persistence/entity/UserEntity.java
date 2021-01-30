@@ -1,6 +1,5 @@
 package pw.komarov.taxi.persistence.entity;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,13 +46,14 @@ public class UserEntity implements EntityIntf {
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	@JoinTable(name = "USER_ROLE", 
 			joinColumns = {@JoinColumn(name = "USER_ID", nullable = false, updatable = false)},
 			inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", nullable = false, updatable = false)})
 	@Getter
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private Collection<RoleEntity> roles;
+	private Set<RoleEntity> roles;
 	
 	public Set<PrivilegeEntity> getPrivileges() {
 		Set<PrivilegeEntity> result = new HashSet<>();
