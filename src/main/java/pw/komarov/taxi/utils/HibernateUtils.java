@@ -25,5 +25,7 @@ public class HibernateUtils {
     
     public static void closeSessionFactory() {
     	sessionFactory.close();
+    	
+    	sessionFactory = null;
     }
 }
