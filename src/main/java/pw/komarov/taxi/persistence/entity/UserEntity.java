@@ -1,9 +1,12 @@
 package pw.komarov.taxi.persistence.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +43,7 @@ public class UserEntity implements EntityIntf {
 	@Getter @Setter
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "USER_ROLE", 
 			joinColumns = {@JoinColumn(name = "USER_ID", nullable = false, updatable = false)},
 			inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", nullable = false, updatable = false)})
@@ -48,4 +51,11 @@ public class UserEntity implements EntityIntf {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Collection<RoleEntity> roles;
+	
+	public Set<PrivilegeEntity> getPrivileges() {
+		Set<PrivilegeEntity> result = new HashSet<>();
+		
+		roles.forEach((role) -> role.getPrivileges().forEach(result::add));
+		return result;
+	}
 }

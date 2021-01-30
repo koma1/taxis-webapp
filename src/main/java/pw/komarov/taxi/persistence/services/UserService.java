@@ -9,4 +9,8 @@ public class UserService extends AbstractDaoService<UserEntity> {
 	public UserService() {
 		super(dao);
 	}
+	
+	public UserEntity getByLogin(String login) {
+		return dao.getByLogin(login);
+	}
 }
