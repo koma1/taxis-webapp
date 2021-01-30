@@ -67,7 +67,7 @@ public class TaxiEntity implements EntityIntf {
 	private String phone;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@Fetch(FetchMode.SELECT)
 	@JoinTable(name = "TAXI_CITY", joinColumns = {@JoinColumn(name = "TAXI_ID", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "CITY_ID",
 			nullable = false, updatable = false) })
