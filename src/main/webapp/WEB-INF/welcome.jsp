@@ -31,17 +31,20 @@
 	<a href="countries/">Countries</a>
 	<br>
 	<br>
-	<sec:authorize access="hasRole('ROLE_AUTHORIZED')">
-		User: ${username}
-		<c:url var="logoutUrl" value="/logout" />
-			<form action="${logoutUrl}" id="logout" method="post">
-			    <input type="hidden" name="${_csrf.parameterName}"
-			           value="${_csrf.token}" />
-			</form>
-		<a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
-	</sec:authorize>
-	<sec:authorize access="!hasRole('ROLE_AUTHORIZED')">
-		<a href="login">Login</a>
-	</sec:authorize>
+	<c:set var="logined" value="${username != null}"/>
+	<c:choose>
+		<c:when test="${logined}">
+			User: ${username}
+			<c:url var="logoutUrl" value="/logout" />
+				<form action="${logoutUrl}" id="logout" method="post">
+				    <input type="hidden" name="${_csrf.parameterName}"
+				           value="${_csrf.token}" />
+				</form>
+			<a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
+		</c:when>
+		<c:otherwise>
+			<a href="login">Login</a>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>
