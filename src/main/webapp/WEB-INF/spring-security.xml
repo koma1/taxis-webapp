@@ -6,6 +6,47 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-5.3.xsd">
     
+    <http auto-config="true">
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/logout" access="permitAll"/>
+        <intercept-url pattern="/taxis/**" access="permitAll"/>
+        <intercept-url pattern="/" access="permitAll"/>
+        
+        <intercept-url pattern="/**" access="denyAll"/>
+        
+        <form-login
+            login-page="/login"
+            authentication-failure-url="/login?error"
+            username-parameter="username"
+            password-parameter="password"/>
+            
+        <logout logout-url="/logout" logout-success-url="/"/>
+    </http>
+    
+    <beans:bean id="userDetailsServiceDao" class="pw.komarov.taxi.security.UserDetailsServiceDaoImpl"/>
+    <authentication-manager erase-credentials="false">
+        <authentication-provider user-service-ref="userDetailsServiceDao"/>
+    </authentication-manager>
+    		
+	<beans:bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
+	<http-firewall ref="defaultHttpFirewall"/>
+	
+	
+	      <!-- REST interceptors -->
+        <!-- 
+        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST')" method="GET"/>
+        
+        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="POST"/>
+        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="PUT"/>
+        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="DELETE"/>
+       -->
+      <!-- Actions interceptors -->
+     <!--   
+        <intercept-url pattern="/taxis/**" access="hasRole('ROLE_AUTHORIZED')" />
+        <intercept-url pattern="/cities/**" access="hasRole('ROLE_AUTHORIZED')" />
+	 -->
+	 
+	     
     <!-- ROLE_ANONYMOUSE - только зашел
 		ROLE_UNAUTHORIZED - ввел капчу (но не прилогинен)
 		
@@ -13,33 +54,5 @@
 		
 		ROLE_ADMIN (Entity modificator save.action, remove.action asd via REST)
 		
-		ROLE_REST -->
-		
-	<beans:bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
-	<http-firewall ref="defaultHttpFirewall"/>
-    
-    <global-method-security pre-post-annotations="enabled"/>
-    <http auto-config="true">
-      <!-- REST interceptors -->
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_REST')" method="GET"/>
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="POST"/>
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="PUT"/>
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_DATA_MANAGER')" method="DELETE"/>
-      <!-- Actions interceptors -->  
-        <intercept-url pattern="/taxis/**" access="hasRole('ROLE_AUTHORIZED')" />
-        <intercept-url pattern="/cities/**" access="hasRole('ROLE_AUTHORIZED')" />
-
-        <form-login
-            login-page="/login"
-            authentication-failure-url="/login?error"
-            username-parameter="username"
-            password-parameter="password"/>
-            
-        <logout logout-url="/logout" logout-success-url="/login"/>
-    </http>
-    
-    <authentication-manager erase-credentials="false">
-        <authentication-provider user-service-ref="userDetailsServiceDao"/>
-    </authentication-manager>
- 
+		PRIVILEGE_REST -->
 </beans:beans>
