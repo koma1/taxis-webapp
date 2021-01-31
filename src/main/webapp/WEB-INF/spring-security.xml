@@ -5,14 +5,16 @@
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-5.3.xsd">
-    
-    <http auto-config="true">
+
+    <http use-expressions="true">
+        <intercept-url pattern="/css/**" access="permitAll"/>
+        <intercept-url pattern="/images/**" access="permitAll"/>
+        <intercept-url pattern="/js/**" access="permitAll"/>
         <intercept-url pattern="/login" access="permitAll"/>
-        <intercept-url pattern="/logout" access="permitAll"/>
-        <intercept-url pattern="/taxis/**" access="permitAll"/>
-        <intercept-url pattern="/" access="permitAll"/>
+
+        <intercept-url pattern="/WEB-INF/welcome.jsp" access="permitAll"/>
         
-        <intercept-url pattern="/**" access="denyAll"/>
+        <intercept-url pattern="/**" access="isFullyAuthenticated()"/>
         
         <form-login
             login-page="/login"
