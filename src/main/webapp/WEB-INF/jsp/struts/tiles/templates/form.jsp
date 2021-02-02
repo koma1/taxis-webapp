@@ -37,9 +37,7 @@
 	}
 </script>
 <meta charset="UTF-8">
-<style type="text/css">
-	.errorMessage {color:red;}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 <title><s:if test="adding">Add</s:if><s:else>Edit</s:else>&nbsp;${action.entitySimpleName.toLowerCase()}</title>
 </head>
 <body>
