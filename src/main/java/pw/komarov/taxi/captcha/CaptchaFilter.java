@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import pw.komarov.taxi.captcha.CaptchaImageServlet.CaptchaResult;
+import pw.komarov.taxi.captcha.CaptchaServlet.CaptchaResult;
 
 public class CaptchaFilter implements Filter {
 
@@ -22,7 +22,7 @@ public class CaptchaFilter implements Filter {
 	private boolean captchaRedirectRequired(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-			CaptchaResult captchaResult = (CaptchaResult)session.getAttribute(CaptchaImageServlet.CAPTCHA_RESULT_ATTRIBUTE_NAME);
+			CaptchaResult captchaResult = (CaptchaResult)session.getAttribute(CaptchaServlet.CAPTCHA_RESULT_SESSION_ATTRIBUTE_NAME);
 			if(captchaResult != null && captchaResult == CaptchaResult.VALID)
 				return false;
 		}
@@ -38,15 +38,13 @@ public class CaptchaFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest)request;
 			String uri = req.getRequestURI();
 			String path = uri.substring(req.getContextPath().length());
-//			System.out.printf("path = %s; uri = %s\n", path, uri);
-			// TODO if browser request - then process it!
+			
 			if((!path.startsWith("/rest/")) && (!path.equals("/captcha") && (!path.equals("/captcha.image")))) //don't use it for rest and captcha
 				if(captchaRedirectRequired((HttpServletRequest)request)) {
 					((HttpServletResponse)response).sendRedirect(req.getContextPath() + "/captcha");
 					return;
 				}
 		}
-			//request.getServletContext()
 		
 		chain.doFilter(request, response);
 	}

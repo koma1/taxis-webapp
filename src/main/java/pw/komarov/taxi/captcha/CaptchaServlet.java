@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +19,10 @@ import lombok.AllArgsConstructor;
 /**
  * Servlet implementation class CaptchaImageServlet
  */
-@WebServlet("/CaptchaImageServlet")
-public class CaptchaImageServlet extends HttpServlet {
+public class CaptchaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static final String CAPTCHA_RESULT_ATTRIBUTE_NAME = "captchaResult";
+	public static final String CAPTCHA_RESULT_SESSION_ATTRIBUTE_NAME = "captchaResult";
 	
 	private static final long captchaTimeout = 3 * (60 * 1000); //3 minutes
 	
@@ -40,9 +38,8 @@ public class CaptchaImageServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CaptchaImageServlet() {
+    public CaptchaServlet() {
         super();
-        // Auto-generated constructor stub
     }
 
 	/**
@@ -50,7 +47,7 @@ public class CaptchaImageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		session.removeAttribute(CAPTCHA_RESULT_ATTRIBUTE_NAME);
+		session.removeAttribute(CAPTCHA_RESULT_SESSION_ATTRIBUTE_NAME);
 		
 		Cage cage = new GCage();
 		String value = cage.getTokenGenerator().next();
@@ -85,7 +82,7 @@ public class CaptchaImageServlet extends HttpServlet {
 			}
 		}
 		
-		session.setAttribute(CAPTCHA_RESULT_ATTRIBUTE_NAME, result);
+		session.setAttribute(CAPTCHA_RESULT_SESSION_ATTRIBUTE_NAME, result);
 		
 		if(result != CaptchaResult.VALID)
 			response.sendRedirect("captcha");

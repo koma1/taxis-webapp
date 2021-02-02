@@ -29,7 +29,7 @@
   
   <servlet>
   	<servlet-name>captcha-image</servlet-name>
-  	<servlet-class>pw.komarov.taxi.captcha.CaptchaImageServlet</servlet-class>
+  	<servlet-class>pw.komarov.taxi.captcha.CaptchaServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
