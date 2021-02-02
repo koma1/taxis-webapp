@@ -37,6 +37,10 @@
   	<url-pattern>/captcha.image</url-pattern>
   </servlet-mapping>
   
+  <listener>
+  	<listener-class>pw.komarov.taxi.captcha.CaptchaListener</listener-class>
+  </listener>
+  
 <!-- Struts -->
   <context-param>
     <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>

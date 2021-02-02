@@ -16,9 +16,6 @@ import com.github.cage.GCage;
 
 import lombok.AllArgsConstructor;
 
-/**
- * Servlet implementation class CaptchaImageServlet
- */
 public class CaptchaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,8 +29,11 @@ public class CaptchaServlet extends HttpServlet {
 		String value;
 	}
 
-	// TODO invalidate this by schedule
-	private final Map<HttpSession,CaptchaDetails> captchas = new ConcurrentHashMap<>();
+	private static final Map<HttpSession,CaptchaDetails> captchas = new ConcurrentHashMap<>();
+	
+	public static void invalidateSession(HttpSession session) {
+		captchas.remove(session);
+	}
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -87,7 +87,7 @@ public class CaptchaServlet extends HttpServlet {
 		if(result != CaptchaResult.VALID)
 			response.sendRedirect("captcha");
 		else {
-			captchas.remove(session);
+			invalidateSession(session);
 			String uri = (String)session.getAttribute(CaptchaFilter.CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME);
 			if(uri != null) {
 				session.removeAttribute(CaptchaFilter.CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME);
