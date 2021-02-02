@@ -116,6 +116,12 @@
       <artifactId>jersey-mvc-jsp</artifactId>
       <version>${jersey-version}</version>
     </dependency>
+    <!-- Captcha (CaGe) -->
+    <dependency>
+  	  <groupId>com.github.cage</groupId>
+  	  <artifactId>cage</artifactId>
+  	  <version>1.0</version>
+	</dependency>
   </dependencies>
 
   <build>
