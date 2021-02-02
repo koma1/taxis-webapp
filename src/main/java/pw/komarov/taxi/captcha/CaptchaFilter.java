@@ -41,7 +41,6 @@ public class CaptchaFilter implements Filter {
 						? String.join("", req.getRequestURI(),"?" ,req.getQueryString())
 						: req.getRequestURI();
 			
-			System.out.println(uri);
 			String path = uri.substring(req.getContextPath().length());
 			
 			if((!path.startsWith("/rest/")) && (!path.equals("/captcha") && (!path.equals("/captcha.image")))) //don't use it for rest and captcha
