@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import pw.komarov.taxi.captcha.CaptchaServlet.CaptchaResult;
 
 public class CaptchaFilter implements Filter {
+	public static final String CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME = "captchaRedirectUri";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {}
@@ -36,11 +37,16 @@ public class CaptchaFilter implements Filter {
 		
 		if(request instanceof HttpServletRequest) {
 			HttpServletRequest req = (HttpServletRequest)request;
-			String uri = req.getRequestURI();
+			String uri = (req.getQueryString() != null)
+						? String.join("", req.getRequestURI(),"?" ,req.getQueryString())
+						: req.getRequestURI();
+			
+			System.out.println(uri);
 			String path = uri.substring(req.getContextPath().length());
 			
 			if((!path.startsWith("/rest/")) && (!path.equals("/captcha") && (!path.equals("/captcha.image")))) //don't use it for rest and captcha
 				if(captchaRedirectRequired((HttpServletRequest)request)) {
+					req.getSession(true).setAttribute(CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME, uri);
 					((HttpServletResponse)response).sendRedirect(req.getContextPath() + "/captcha");
 					return;
 				}

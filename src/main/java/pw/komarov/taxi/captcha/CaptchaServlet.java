@@ -32,7 +32,7 @@ public class CaptchaServlet extends HttpServlet {
 		String value;
 	}
 
-	// TODO clean schedule
+	// TODO invalidate this by schedule
 	private final Map<HttpSession,CaptchaDetails> captchas = new ConcurrentHashMap<>();
        
     /**
@@ -86,8 +86,15 @@ public class CaptchaServlet extends HttpServlet {
 		
 		if(result != CaptchaResult.VALID)
 			response.sendRedirect("captcha");
-		else
-			response.sendRedirect(request.getContextPath());
+		else {
+			captchas.remove(session);
+			String uri = (String)session.getAttribute(CaptchaFilter.CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME);
+			if(uri != null) {
+				session.removeAttribute(CaptchaFilter.CAPTCHA_REDIRECT_URI_SESSION_ATTRIBUTE_NAME);
+				response.sendRedirect(uri);
+			} else //index page
+				response.sendRedirect(request.getContextPath());
+		}
 	}
 
 }
