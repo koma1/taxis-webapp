@@ -7,6 +7,16 @@
   <display-name>Taxis web application</display-name>
   
 <!-- Captcha -->
+  <filter>
+    <filter-name>captcha</filter-name>
+    <filter-class>pw.komarov.taxi.captcha.CaptchaFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>captcha</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <servlet>
   	<servlet-name>captcha-page</servlet-name>
   	<jsp-file>/WEB-INF/jsp/captcha.jsp</jsp-file>
