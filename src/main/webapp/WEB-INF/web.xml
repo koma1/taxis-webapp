@@ -6,11 +6,47 @@
 
   <display-name>Taxis web application</display-name>
   
+<!-- Captcha -->
+  <filter>
+    <filter-name>captcha</filter-name>
+    <filter-class>pw.komarov.taxi.captcha.CaptchaFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>captcha</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+  	<servlet-name>captcha-page</servlet-name>
+  	<jsp-file>/WEB-INF/jsp/captcha.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>captcha-page</servlet-name>
+  	<url-pattern>/captcha</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>captcha-image</servlet-name>
+  	<servlet-class>pw.komarov.taxi.captcha.CaptchaServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>captcha-image</servlet-name>
+  	<url-pattern>/captcha.image</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+  	<listener-class>pw.komarov.taxi.captcha.CaptchaListener</listener-class>
+  </listener>
+
+<!-- Spring -->
   <context-param>
 	<param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/classes/spring-security.xml</param-value>
   </context-param>
-
+  
   <filter>
   	<filter-name>springSecurityFilterChain</filter-name>
 	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -21,8 +57,11 @@
 	<url-pattern>/*</url-pattern>
   </filter-mapping>
 	
-	 
+  <listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 
+  <!-- Struts -->
   <context-param>
     <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
     <param-value>/tiles.xml</param-value>
@@ -46,9 +85,6 @@
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
   
-  <listener>
-	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
 
   <welcome-file-list>
     <welcome-file>/WEB-INF/welcome.jsp</welcome-file>
