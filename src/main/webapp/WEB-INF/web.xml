@@ -5,7 +5,29 @@
          version="3.1">
 
   <display-name>Taxis web application</display-name>
-
+  
+<!-- Captcha -->
+  <servlet>
+  	<servlet-name>captcha-page</servlet-name>
+  	<jsp-file>/WEB-INF/jsp/captcha.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>captcha-page</servlet-name>
+  	<url-pattern>/captcha</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>captcha-image</servlet-name>
+  	<servlet-class>pw.komarov.taxi.captcha.CaptchaImageServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>captcha-image</servlet-name>
+  	<url-pattern>/captcha.image</url-pattern>
+  </servlet-mapping>
+  
+<!-- Struts -->
   <context-param>
     <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
     <param-value>/tiles.xml</param-value>
