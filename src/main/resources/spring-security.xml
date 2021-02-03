@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-5.3.xsd">
 	
-	<!-- REST protection rules -->
+  <!-- REST protection rules -->
 	<http use-expressions="true" pattern="/rest/**" create-session="stateless">
 		<intercept-url pattern="/rest/**" 	access="hasAuthority('PRIVILEGE_REST')" method="GET"/>
 		
@@ -16,14 +16,21 @@
 		
 		<http-basic />
 	</http>
-
+  
+  <!-- General protection rules -->
     <http use-expressions="true">
+      <!-- Static resources -->
         <intercept-url pattern="/css/**" access="permitAll"/>
         <intercept-url pattern="/images/**" access="permitAll"/>
         <intercept-url pattern="/js/**" access="permitAll"/>
+      <!-- Captcha rules -->
+        <intercept-url pattern="/captcha" access="permitAll"/>
+        <intercept-url pattern="/captcha.image" access="permitAll"/>
+      <!-- Grantors -->
         <intercept-url pattern="/login" access="permitAll"/>
-
-        <intercept-url pattern="/WEB-INF/welcome.jsp" access="permitAll"/>
+	  <!-- Welcome -->
+		<intercept-url pattern="/WEB-INF/welcome.jsp" access="permitAll"/>
+	  <!-- any... resources -->
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 
         <form-login
