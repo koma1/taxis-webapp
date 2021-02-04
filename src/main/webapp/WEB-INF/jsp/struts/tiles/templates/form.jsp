@@ -14,7 +14,7 @@
 			$.ajax({
 				url     : 'ajaxValidate.action',
 				method  : 'POST',
-				data    : {name : name, value : value, id: entityId},
+				data    : { name : name, value : value, id: entityId, ${_csrf.parameterName}: '${_csrf.token}'},
 				success : function(resultText){
 					var correctResponse = ((resultText === 'true') || (resultText === 'false'))
 					if(correctResponse) {
@@ -45,6 +45,7 @@
     <s:actionerror/>
 	    <s:form action="save">
 	       		<s:hidden name="model.id"/>&nbsp;
+	       		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	        
 	        <tiles:insertAttribute name="formContent"/>
 	        

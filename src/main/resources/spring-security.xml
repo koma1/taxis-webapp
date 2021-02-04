@@ -30,9 +30,12 @@
         <intercept-url pattern="/login" access="permitAll"/>
 	  <!-- Welcome -->
 		<intercept-url pattern="/WEB-INF/welcome.jsp" access="permitAll"/>
+	  <!-- Actions -->		
+		<intercept-url pattern="/*/save*"   method="GET" access="denyAll"/>
+		<intercept-url pattern="/*/remove*" method="GET" access="denyAll"/>
 	  <!-- any... resources -->
         <intercept-url pattern="/**" access="isAuthenticated()"/>
-
+	  
         <form-login
             login-page="/login"
             authentication-failure-url="/login?error"
@@ -49,29 +52,4 @@
     		
 	<beans:bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
 	<http-firewall ref="defaultHttpFirewall"/>
-	
-	
-	      <!-- REST interceptors -->
-        <!-- 
-        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST')" method="GET"/>
-        
-        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="POST"/>
-        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="PUT"/>
-        <intercept-url pattern="/rest/**" access="hasRole('PRIVILEGE_REST') and hasRole('PRIVILEGE_DATA_MANAGER')" method="DELETE"/>
-       -->
-      <!-- Actions interceptors -->
-     <!--   
-        <intercept-url pattern="/taxis/**" access="hasRole('ROLE_AUTHORIZED')" />
-        <intercept-url pattern="/cities/**" access="hasRole('ROLE_AUTHORIZED')" />
-	 -->
-	 
-	     
-    <!-- ROLE_ANONYMOUSE - только зашел
-		ROLE_UNAUTHORIZED - ввел капчу (но не прилогинен)
-		
-		ROLE_AUTHORIZED - прилогинен
-		
-		ROLE_ADMIN (Entity modificator save.action, remove.action asd via REST)
-		
-		PRIVILEGE_REST -->
 </beans:beans>
