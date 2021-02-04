@@ -31,6 +31,7 @@
 	<img src="captcha.image"/>
 	<form method="post" action="captcha.image">
 		<input type="text" name="captcha" autocomplete="off"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit"/>
 	</form>
 </body>

@@ -1,0 +1,55 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-5.3.xsd">
+	
+  <!-- REST protection rules -->
+	<http use-expressions="true" pattern="/rest/**" create-session="stateless">
+		<intercept-url pattern="/rest/**" 	access="hasAuthority('PRIVILEGE_REST')" method="GET"/>
+		
+		<intercept-url pattern="/rest/**" 	access="hasAuthority('PRIVILEGE_REST') and hasAuthority('PRIVILEGE_MANAGE_DATA')" method="POST"/>
+		<intercept-url pattern="/rest/**" 	access="hasAuthority('PRIVILEGE_REST') and hasAuthority('PRIVILEGE_MANAGE_DATA')" method="PUT"/>
+		<intercept-url pattern="/rest/**" 	access="hasAuthority('PRIVILEGE_REST') and hasAuthority('PRIVILEGE_MANAGE_DATA')" method="DELETE"/>
+		
+		<http-basic />
+	</http>
+  
+  <!-- General protection rules -->
+    <http use-expressions="true">
+      <!-- Static resources -->
+        <intercept-url pattern="/css/**" access="permitAll"/>
+        <intercept-url pattern="/images/**" access="permitAll"/>
+        <intercept-url pattern="/js/**" access="permitAll"/>
+      <!-- Captcha rules -->
+        <intercept-url pattern="/captcha" access="permitAll"/>
+        <intercept-url pattern="/captcha.image" access="permitAll"/>
+      <!-- Grantors -->
+        <intercept-url pattern="/login" access="permitAll"/>
+	  <!-- Welcome -->
+		<intercept-url pattern="/WEB-INF/welcome.jsp" access="permitAll"/>
+	  <!-- Actions -->		
+		<intercept-url pattern="/*/save*"   method="GET" access="denyAll"/>
+		<intercept-url pattern="/*/remove*" method="GET" access="denyAll"/>
+	  <!-- any... resources -->
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+	  
+        <form-login
+            login-page="/login"
+            authentication-failure-url="/login?error"
+            username-parameter="username"
+            password-parameter="password"/>
+            
+        <logout logout-url="/logout" logout-success-url="/"/>
+    </http>
+    
+    <beans:bean id="userDetailsServiceDao" class="pw.komarov.taxi.security.UserDetailsServiceDaoImpl"/>
+    <authentication-manager erase-credentials="false">
+        <authentication-provider user-service-ref="userDetailsServiceDao"/>
+    </authentication-manager>
+    		
+	<beans:bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
+	<http-firewall ref="defaultHttpFirewall"/>
+</beans:beans>

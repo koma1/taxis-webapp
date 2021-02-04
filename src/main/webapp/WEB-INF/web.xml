@@ -10,6 +10,10 @@
   <filter>
     <filter-name>captcha</filter-name>
     <filter-class>pw.komarov.taxi.captcha.CaptchaFilter</filter-class>
+    <init-param>
+    	<param-name>IgnorePatterns</param-name>
+    	<param-value>"/rest/**", "/url2*"</param-value>
+    </init-param>
   </filter>
 
   <filter-mapping>
@@ -40,8 +44,28 @@
   <listener>
   	<listener-class>pw.komarov.taxi.captcha.CaptchaListener</listener-class>
   </listener>
+
+<!-- Spring -->
+  <context-param>
+	<param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/classes/spring-security.xml</param-value>
+  </context-param>
   
-<!-- Struts -->
+  <filter>
+  	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter> 
+	
+  <filter-mapping>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+  <listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- Struts -->
   <context-param>
     <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
     <param-value>/tiles.xml</param-value>
@@ -55,14 +79,16 @@
   <filter-mapping>
     <filter-name>struts2</filter-name>
     <url-pattern>/taxis/*</url-pattern>
-    <url-pattern>*.action</url-pattern>
     <url-pattern>/cities/*</url-pattern>
     <url-pattern>/countries/*</url-pattern>
+    <url-pattern>/login</url-pattern>
+    <url-pattern>*.action</url-pattern>
   </filter-mapping>
 
   <listener>
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
+  
 
   <welcome-file-list>
     <welcome-file>/WEB-INF/welcome.jsp</welcome-file>
