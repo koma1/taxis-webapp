@@ -24,11 +24,11 @@ Functionality:
       - AJAX (jquery) some fields validation and indication
 
 Stack:
-    - Hibernate (+HQL, +Criteria API)
-    - JAX-RS (Jersey)
-    - Web 3.1 (Servlet, JSP, JSTL)
-    - MVC: Apache Struts2 (+tiles)
-    - Spring security
+      - Hibernate (+HQL, +Criteria API)
+      - JAX-RS (Jersey)
+      - Web 3.1 (Servlet, JSP, JSTL)
+      - MVC: Apache Struts2 (+tiles)
+      - Spring security
     
-    - Lombok
-    - CaGe (CAptcha image GEnerator)
+      - Lombok
+      - CaGe (CAptcha image GEnerator)
