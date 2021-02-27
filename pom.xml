@@ -34,7 +34,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- javax.servlet -->
+    <!-- javax.* -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -51,14 +51,17 @@
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
-      <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.1.1</version>
+	</dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -66,7 +69,6 @@
       <version>${lombok-version}</version>
       <scope>provided</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -91,17 +93,20 @@
       <version>${struts-version}</version>
     </dependency>
     <!-- JERSEY -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-server</artifactId>
+	    <version>${jersey-version}</version>
+	</dependency>
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>${jersey-version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet</artifactId>
       <version>${jersey-version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
